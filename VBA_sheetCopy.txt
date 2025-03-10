@@ -1,8 +1,0 @@
-https://utataneblog760.com/291macrosheetcopy/
-
-Sub シートのコピー()
-    Dim ws As Worksheet
-    Sheets("Sheet1").Copy After:=Sheets("Sheet1")
-    Set ws = ActiveSheet
-    ws.Name = "コピー後のシート"
-End Sub
