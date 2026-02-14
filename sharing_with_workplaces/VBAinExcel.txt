@@ -1,1 +1,63 @@
+Sub PrintRangeLoopToOnePDF()
+
+    Dim i As Long
+    Dim rng As Range
+    Dim ws As Worksheet
+    Dim folderPath As String
+    Dim baseName As String
+    Dim fileName As String
+    Dim pdfPath As String
+    Dim serial As Long
+    Dim taskName As String
+
+    Set ws = ActiveSheet
+
+    ' ▼ 課題名（セル参照でもOK）
+    taskName = "課題A"   ' ←必要に応じて変更（例：Range("B1").Value）
+
+    ' ▼ 保存フォルダ
+    folderPath = "C:\Temp\"
+
+    ' ▼ 日付（例：20260214）
+    baseName = Format(Date, "yyyymmdd")
+
+    ' ▼ 二桁の連番を自動生成（01, 02, 03…）
+    serial = 1
+    Do While Dir(folderPath & taskName & "_" & baseName & "_" & Format(serial, "00") & ".pdf") <> ""
+        serial = serial + 1
+    Loop
+
+    ' ▼ 最終的な PDF ファイル名
+    fileName = taskName & "_" & baseName & "_" & Format(serial, "00") & ".pdf"
+    pdfPath = folderPath & fileName
+
+    ' ▼ 印刷範囲をクリア
+    ws.PageSetup.PrintArea = ""
+
+    ' ====== ループ開始 ======
+    For i = 1 To 5   ' ←必要に応じて回数変更
+        ws.Range("U5").Value = i
+        if 
+
+            ' ▼ 印刷したいセル範囲を指定
+            Set rng = ws.Range("A1:D20")
+    
+            ' ▼ 印刷範囲を設定
+            ws.PageSetup.PrintArea = rng.Address
+    
+            ' ▼ PDF に追加（同じファイル名 → ページ追加）
+            ws.ExportAsFixedFormat _
+                Type:=xlTypePDF, _
+                Filename:=pdfPath, _
+                Quality:=xlQualityStandard, _
+                IncludeDocProperties:=True, _
+                IgnorePrintAreas:=False, _
+                OpenAfterPublish:=False
+
+    Next i
+    ' ====== ループ終了 ======
+
+    MsgBox "PDF 出力完了：" & vbCrLf & pdfPath
+
+End Sub
 
