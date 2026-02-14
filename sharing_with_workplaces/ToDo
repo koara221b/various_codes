@@ -1,0 +1,13 @@
+〇全般
+
+〇台帳
+新規ファイルを作成する
+クエリを作る
+データを成型する
+頭文字[Column1] & Character.FromNumber(13) & Character.FromNumber(10) & Text.From([Column2])
+合体　Table.AddColumn(カスタム2, "カスタム.1", each Text.Left([Column1], 3))
+
+
+
+
+〇印刷
